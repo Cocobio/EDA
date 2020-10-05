@@ -4,35 +4,44 @@
 #include <string>
 #include <algorithm>
 #include <string.h>
+#include <unordered_map>
 
-// size_t boyer_moore(const std::string &t, const std::string &p) {
-// 	// preprocess pattern
-// 	std::unordered_map<char,size_t> bad_match_table;
+#include <iostream>
 
-// 	for (size_t i=0; i<p.size(); i++)
-// 		bad_match_table[p[i]] = std::max(size_t(1), p.size()-i-1);
+size_t boyer_moore(const std::string &text, const std::string &pattern) {
+	// preprocess pattern
+	std::unordered_map<char,size_t> bad_match_table;
 
-// 	// compare
-// 	for (int i=0, step; i<=t.size()-p.size(); i+=step) {
-// 		step = 0;
+	for (size_t i=0; i<pattern.size(); i++)
+		bad_match_table[pattern[i]] = std::max(size_t(1), pattern.size()-i-1);
 
-// 		for (int j=p.size()-1; j>=0; j--) {
-// 			if (t[i+j]!=p[j]) {
-// 				if (bad_match_table.find(t[i+j])!=bad_match_table.end()) {
-// 					step = bad_match_table[t[i+j]];
-// 					break;
-// 				}
-// 				else {
-// 					step = p.size();
-// 					break;
-// 				}
-// 			}
-// 		}
-// 		if (step==0) return i;
-// 	}
+	// compare
+	for (int i=0, step; i<=text.size()-pattern.size(); i+=step) {
+		step = 0;
 
-// 	return t.size();
-// }
+		for (int j=pattern.size()-1; j>=0; j--) {
+			if (text[i+j]!=pattern[j]) {
+				if (bad_match_table.find(text[i+j])!=bad_match_table.end()) {
+					step = bad_match_table[text[i+j]];
+					break;
+				}
+				else {
+					step = pattern.size();
+					break;
+				}
+			}
+		}
+		if (step==0) { 
+	        // For testing the match of all ocurrances
+			step = 1;
+			// return i;
+		}
+	}
+
+	return text.size();
+}
+
+using namespace std;
 
 size_t boyer_moore(const char *text, size_t n, const char *pattern, size_t m, size_t Sigma=256) {
 	// preprocess pattern
@@ -61,10 +70,12 @@ size_t boyer_moore(const char *text, size_t n, const char *pattern, size_t m, si
 			}
 		}
 		if (step==0) {
-			// step = 1;
-			delete[] bad_match_table;
-			return i;
+	        // For testing the match of all ocurrances
+			step = 1;
+			// delete[] bad_match_table;
+			// return i;
 		}
+		// cout << i << endl;
 	}
 
 	delete[] bad_match_table;

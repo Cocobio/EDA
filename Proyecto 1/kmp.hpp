@@ -32,8 +32,9 @@ auto kmp(const char *text, size_t n, const char *pattern, size_t m) -> size_t {
 		++i;
 		++j;
 
-		if (j == m)
-			return i-m;
+        // For testing the match of all ocurrances
+		// if (j == m)
+		// 	return i-m;
 	}
 
 	return i;
@@ -42,7 +43,7 @@ auto kmp(const char *text, size_t n, const char *pattern, size_t m) -> size_t {
 
 
 
-
+// We tried an implementation from geeks for geeks, because we couldn't belive that kmp was so slow
 void computeLPSArray(const char* pat, int M, int* lps); 
   
 // Prints occurrences of txt[] in pat[] 

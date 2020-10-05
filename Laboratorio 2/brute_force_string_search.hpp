@@ -26,9 +26,10 @@ size_t brute_force_string_search(const char *text, size_t n, const char *pattern
 		for (j=0; j<m; j++)
 			if (text[i+j]!=pattern[j])
 				break;
-
-		if (j==m)
-			return i;
+			
+        // For testing the match of all ocurrances
+		// if (j==m)
+		// 	return i;
 	}
 
 	return n;

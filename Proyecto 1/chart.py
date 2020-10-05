@@ -29,8 +29,25 @@ for table_i, title_i in zip(table,title):
 	plt.plot(table_i['m'], table_i['time_brute'], color=bf, label='Brute Force')
 
 	plt.ylabel('Tiempo [ms]')
-	plt.xlabel('Tama?o patron')
+	plt.xlabel('Tamaño patron')
 	plt.title(title_i)
 	plt.legend(loc='upper left')
 
 	plt.show()
+
+
+### Boyer Moore tests
+BM = 'bm.csv'
+
+BM_t = pd.read_csv(BM,';')
+boyer2 = '#f93a6e'
+
+plt.plot(BM_t['m'], BM_t['hash'], color=boyer2, label='Hash table')
+plt.plot(BM_t['m'], BM_t['array'], color=boyer, label='Array')
+
+plt.ylabel('Tiempo [ms]')
+plt.xlabel('Tamaño patron')
+plt.title('Boyer Moore con distintos contenedores para la tabla')
+plt.legend(loc='upper right')
+
+plt.show()
